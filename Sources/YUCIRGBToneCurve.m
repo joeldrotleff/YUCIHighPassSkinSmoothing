@@ -8,6 +8,7 @@
 
 #import "YUCIRGBToneCurve.h"
 #import "YUCIFilterConstructor.h"
+#import "YUCIResourceBundle.h"
 
 static NSCache * YUCIRGBToneCurveSplineCurveCache(void) {
     static NSCache *cache;
@@ -53,7 +54,7 @@ static NSCache * YUCIRGBToneCurveSplineCurveCache(void) {
     static CIKernel *kernel;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *kernelString = [[NSString alloc] initWithContentsOfURL:[[NSBundle bundleForClass:self] URLForResource:NSStringFromClass([YUCIRGBToneCurve class]) withExtension:@"cikernel"] encoding:NSUTF8StringEncoding error:nil];
+        NSString *kernelString = [[NSString alloc] initWithContentsOfURL:[[YUCIResourceBundle resourceBundle] URLForResource:NSStringFromClass([YUCIRGBToneCurve class]) withExtension:@"cikernel"] encoding:NSUTF8StringEncoding error:nil];
         kernel = [CIKernel kernelWithString:kernelString];
     });
     return kernel;

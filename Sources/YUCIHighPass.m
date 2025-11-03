@@ -8,6 +8,7 @@
 
 #import "YUCIHighPass.h"
 #import "YUCIFilterConstructor.h"
+#import "YUCIResourceBundle.h"
 
 @implementation YUCIHighPass
 
@@ -29,7 +30,7 @@
     static CIColorKernel *kernel;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *kernelString = [[NSString alloc] initWithContentsOfURL:[[NSBundle bundleForClass:self] URLForResource:NSStringFromClass([YUCIHighPass class]) withExtension:@"cikernel"] encoding:NSUTF8StringEncoding error:nil];
+        NSString *kernelString = [[NSString alloc] initWithContentsOfURL:[[YUCIResourceBundle resourceBundle] URLForResource:NSStringFromClass([YUCIHighPass class]) withExtension:@"cikernel"] encoding:NSUTF8StringEncoding error:nil];
         kernel = [CIColorKernel kernelWithString:kernelString];
     });
     return kernel;
